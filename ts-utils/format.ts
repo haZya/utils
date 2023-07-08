@@ -2,6 +2,20 @@ export const getAsString = (value?: string | string[]) => {
   return Array.isArray(value) ? value[0] : value ?? '';
 };
 
+export const removeItem = <T>(array: T[], item: T) => {
+  const index = array.findIndex((element) => {
+    if (typeof element === 'object' && typeof item === 'object') {
+      return JSON.stringify(element) === JSON.stringify(item);
+    }
+    return element === item;
+  });
+  if (index !== -1) {
+    array.splice(index, 1);
+  }
+
+  return array;
+};
+
 export const formatBytes = (bytes: number, decimals: number) => {
   if (bytes == 0) return '0 Bytes';
   const k = 1024,
